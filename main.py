@@ -1,6 +1,6 @@
 import json
 import csv
-from openpyxl import Workbook, load_workbook
+from openpyxl import Workbook
 
 # person = {111111: ("Ivan", 20),
 #           222222: ("Ira",19),
@@ -12,24 +12,20 @@ from openpyxl import Workbook, load_workbook
 #     json.dump(person, file, ensure_ascii=False, indent=4)
 
 
-# with open("person.json", "r") as file_json:
-#     person = json.load(file_json)
-#
-# # print(person)
-# person_phone = [99999999, 88888888, 77777777, 66666666, 55555555]
-# list_person = []
-# c = 1
-# for k, v in person.items():
-#     list_person.append({"id": k, "name": v[0], "age": v[1], "phone": person_phone[c - 1]})
-#     c += 1
-# # print(list_person)
-#
-# with open("person.csv", "w") as file_csv:
-#     fieldnames = ["id", "name", "age", "phone"]
-#     writer = csv.DictWriter(file_csv, fieldnames=fieldnames)
-#     for row in list_person:
-#         writer.writerow(row)
-#
+with open("person.json", "r") as file_json:
+    person = json.load(file_json)
+
+person_phone = [99999999, 88888888, 77777777, 66666666, 55555555]
+
+with open("person.csv", "w") as file_csv:
+    fieldnames = ["id", "name", "age", "phone"]
+    writer = csv.DictWriter(file_csv, fieldnames=fieldnames)
+    writer.writeheader()
+    for i, p in zip(person, person_phone):
+        writer.writerow({fieldnames[0]: i, fieldnames[1]: person[i][0],
+                         fieldnames[2]: person[i][1], fieldnames[3]: p})
+
+
 csv_person = []
 
 with open("person.csv", "r") as f:

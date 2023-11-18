@@ -2,6 +2,8 @@
 /.idea
 /less8/person.json
 /less8/quatrain.txt
+/less7/.ipynb_checkpoints
+/less8/.ipynb_checkpoints
 person.json
-persons.xlsx
+person.xlsx
 person.csv
