@@ -2,14 +2,14 @@ import json
 import csv
 from openpyxl import Workbook, load_workbook
 
-# person = {111111: ("Ivan", 20),
-#           222222: ("Ira",19),
-#           333333: ("Vova", 40),
-#           444444: ("Nina", 38),
-#           555555: ("Igor", 15)}
-# #
-# with open("person.json", "w") as file:
-#     json.dump(person, file, ensure_ascii=False, indent=4)
+person = {111111: ("Ivan", 20),
+          222222: ("Ira",19),
+          333333: ("Vova", 40),
+          444444: ("Nina", 38),
+          555555: ("Igor", 15)}
+#
+with open("person.json", "w") as file:
+    json.dump(person, file, ensure_ascii=False, indent=4)
 
 
 with open("person.json", "r") as file_json:
