@@ -1,7 +1,6 @@
 import json
 import csv
-from openpyxl.workbook import Workbook
-
+from openpyxl import Workbook, load_workbook
 
 # person = {111111: ("Ivan", 20),
 #           222222: ("Ira",19),
@@ -31,22 +30,44 @@ from openpyxl.workbook import Workbook
 #     for row in list_person:
 #         writer.writerow(row)
 #
+csv_person = []
+
+with open("person.csv", "r") as f:
+    fieldnames = ["id", "name", "age", "phone"]
+    per = csv.DictReader(f, fieldnames=fieldnames)
+    for i in per:
+        csv_person.append(i)
+
+print(csv_person)
 wb = Workbook()
 ws = wb.active
 
-col_dict = {}
+ws["B1"] = "person1"
+ws["C1"] = "person2"
+ws["D1"] = "person3"
+ws["E1"] = "person4"
+ws["F1"] = "person5"
 
-with open("person.csv", "r") as csv_file:
-    file_reader = csv.DictReader(csv_file)
-    for i in range(2, 7):
-        ws.cell(row=1, column=i).value = f"Person {i - 1}"
-    col_dict = {"id": [], "name": [], "phone": []}
-    for i in file_reader:
-        for j in i:
-            if j in col_dict:
-                col_dict[j].append(i[j])
-    print(col_dict)
-for i in col_dict:
-    ws.append([i] + col_dict[i])
+ws["A2"] = "id"
+ws["A3"] = "name"
+ws["A4"] = "phone"
 
-wb.save("person.xlsx")
+ws["B2"] = csv_person[0]["id"]
+ws["C2"] = csv_person[1]["id"]
+ws["D2"] = csv_person[2]["id"]
+ws["E2"] = csv_person[3]["id"]
+ws["F2"] = csv_person[4]["id"]
+
+ws["B3"] = csv_person[0]["name"]
+ws["C3"] = csv_person[1]["name"]
+ws["D3"] = csv_person[2]["name"]
+ws["E3"] = csv_person[3]["name"]
+ws["F3"] = csv_person[4]["name"]
+
+ws["B4"] = csv_person[0]["phone"]
+ws["C4"] = csv_person[1]["phone"]
+ws["D4"] = csv_person[2]["phone"]
+ws["E4"] = csv_person[3]["phone"]
+ws["F4"] = csv_person[4]["phone"]
+
+wb.save("persons.xlsx")
