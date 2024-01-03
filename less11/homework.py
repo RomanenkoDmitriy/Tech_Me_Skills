@@ -34,6 +34,7 @@ d = {}
 
 
 def task_collatza(num: int, counter=0) -> int:
+
     a = 0
 
     if num in d:
