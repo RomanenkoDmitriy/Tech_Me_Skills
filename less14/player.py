@@ -5,6 +5,7 @@ class Player:
 
         self.name: str = name
         self.location: object = start
+        self.previous_room = None
         self.way: list = [start]
         self.hp = 0
         self.inventory = 0
@@ -15,6 +16,7 @@ class Player:
             print(f"Dor {i + 1}")
 
     def enter_room(self, room: object):
+        self.previous_room = self.location
         self.location = room
         self.way.append(room)
 
@@ -24,4 +26,6 @@ class Player:
     def max_hp(self, hp: int):
         self.hp = hp
 
-
+    def get_key(self, room_key):
+        if room_key:
+            self.inventory += 1
