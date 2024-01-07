@@ -1,8 +1,10 @@
 from random import choice
 from room import Room
 from player import Player
-from auxiliary_functions import add_dict
 from my_dekor import TestDekor
+from enemy import Enemy
+from auxiliary_functions import add_dict
+
 
 
 room1 = Room("Room 1")
@@ -18,24 +20,32 @@ room3.add_door(room4)
 room4.add_door(room5)
 room4.add_door(room6, True)
 
+player = Player("User", choice(Room.all_rooms))
+player.hp = len(Room.all_rooms)
+
+enemy = Enemy("Enemy", choice(Room.all_rooms))
+
 
 dekor = TestDekor()
 
 @dekor.time_game
 def main():
-    player = Player("User", choice(Room.all_rooms))
-    player.hp = len(Room.all_rooms)
+
 
     while True:
         if player.location.fin:
             print("Congratulations!!!")
             break
 
+        if player.location == enemy.location:
+            player.hp -= 2
+            print("ByyyyyyM!!!!")
+
         if player.hp <= 0:
             print("You loos!!!!!")
             break
 
-        player.look_around()
+        # player.look_around()
 
         print("Select a door:")
         for i, door in enumerate(player.location.doors):
@@ -64,12 +74,17 @@ def main():
             player.location = player.location.previous_room
             player.hp -= 1
 
-        print(player.hp, player.inventory)
+        # print(player.hp, player.inventory)
 
+        if enemy.location.doors:
+            door = choice(enemy.location.doors)
+            enemy.enter_room(door.in_room)
+        else:
+           enemy.location = enemy.location.previous_room
 
 
 
 if __name__ == "__main__":
     dekor.start()
-    # main()
+
 
